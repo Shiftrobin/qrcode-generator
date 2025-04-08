@@ -49,26 +49,39 @@ class FrontenController extends Controller
         //return redirect()->route('login');
     }
 	
-	//only qrcode
+    // only qrcode 
     public function QrcodeDownload($id){
         $portal = QrcodeModel::where('id', $id)->first();
+        
+        $portal_name = trim($portal->portal_name);
+        $clean_name = strtolower(str_replace(' ', '-', $portal_name)); 
+        $filename = $clean_name.'.png';
+        
         $portal_link = $portal->portal_link;
         //dd($portal_link);
         $qrCode = QrCode::format('png')->size(300)->generate($portal_link);
 
         return Response::make($qrCode, 200, [
             'Content-Type' => 'image/png',
-            'Content-Disposition' => 'attachment; filename="qrcode.png"',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
         ]);
 
     }
-	
+    
+    
     //qrcode with logo 
     public function QrcodeWthLogoDownload($id){
         
         $portal = QrcodeModel::where('id', $id)->first();
+        
+        $portal_name = trim($portal->portal_name);
+        $clean_name = strtolower(str_replace(' ', '-', $portal_name)); 
+        $filename = $clean_name.'.png';
+
+        
         $portal_link = $portal->portal_link;
         //dd($portal_link);
+        
         $qrCode = QrCode::format('png')
                     ->size(300)
                     ->color(0, 0, 0)  // Black QR code
@@ -77,7 +90,7 @@ class FrontenController extends Controller
 
         return Response::make($qrCode, 200, [
             'Content-Type' => 'image/png',
-            'Content-Disposition' => 'attachment; filename="qrcode.png"',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
         ]);
         
     }
