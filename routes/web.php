@@ -67,6 +67,7 @@ Route::get('/cc', function () {
 
 Route::get('/', [FrontenController::class, 'default'])->name('default');
 Route::get('/qrcode-download/{id}', [FrontenController::class, 'QrcodeDownload'])->name('qrcode.download');
+Route::get('/qrcode-with-logo-download/{id}', [FrontenController::class, 'QrcodeWthLogoDownload'])->name('qrcode.with.logo.download');
 // Route::get('/', [VcardController::class, 'memberSearch'])->name('member.search');
 //Route::get('/member-search-result', [VcardController::class, 'memberSearchResult'])->name('member.search.result');
 //Route::get('/member/{name}/{id}', [VcardController::class, 'memberProfile'])->name('member.profile');

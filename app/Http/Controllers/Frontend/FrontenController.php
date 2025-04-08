@@ -48,7 +48,8 @@ class FrontenController extends Controller
         return view('frontend.qrcode.index',$data);
         //return redirect()->route('login');
     }
-
+	
+	//only qrcode
     public function QrcodeDownload($id){
         $portal = QrcodeModel::where('id', $id)->first();
         $portal_link = $portal->portal_link;
@@ -60,6 +61,25 @@ class FrontenController extends Controller
             'Content-Disposition' => 'attachment; filename="qrcode.png"',
         ]);
 
+    }
+	
+    //qrcode with logo 
+    public function QrcodeWthLogoDownload($id){
+        
+        $portal = QrcodeModel::where('id', $id)->first();
+        $portal_link = $portal->portal_link;
+        //dd($portal_link);
+        $qrCode = QrCode::format('png')
+                    ->size(300)
+                    ->color(0, 0, 0)  // Black QR code
+                    ->merge(public_path('backend/images/favicon.png'), 0.3, true) // Add a logo
+                    ->generate($portal_link);
+
+        return Response::make($qrCode, 200, [
+            'Content-Type' => 'image/png',
+            'Content-Disposition' => 'attachment; filename="qrcode.png"',
+        ]);
+        
     }
 
 

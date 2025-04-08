@@ -60,7 +60,10 @@
 	                        @endif
 	                      </td>
 	                      <td>
-	                        <a class="btn btn-sm btn-success" href="{{ route('qrcode.download',$data->id) }}"><i class="fa fa-download"></i> Download QR Code </a>	                       
+	                        <a class="btn btn-sm btn-success" href="{{ route('qrcode.download',$data->id) }}"><i class="fa fa-download"></i> Download QR Code </a>	
+                            <br>
+	                        <br>
+	                         <a class="btn btn-sm btn-primary" href="{{ route('qrcode.with.logo.download',$data->id) }}"><i class="fa fa-download"></i> QR Code with Logo Inside  </a>	 							
 	                   	   </td>
 	                    </tr>
                     @endforeach
